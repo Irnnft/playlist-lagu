@@ -1,0 +1,68 @@
+package tugaspm;
+import java.util.Scanner;
+
+class Song {
+    String title;
+    Song next;
+
+    Song(String title) {
+        this.title = title;
+        this.next = null;
+    }
+}
+
+class Playlist {
+    private Song head;
+
+    public Playlist() {
+        this.head = null;
+    }
+
+    // Metode untuk menambah lagu di akhir playlist
+    public void addSong(String title) {
+        Song newSong = new Song(title);
+        if (head == null) {
+            head = newSong;
+        } else {
+            Song current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newSong;
+        }
+    }
+
+    // Metode untuk menampilkan semua lagu di playlist
+    public void displayPlaylist() {
+        if (head == null) {
+            System.out.println("Playlist kosong.");
+            return;
+        }
+
+        Song current = head;
+        while (current != null) {
+            System.out.println(current.title);
+            current = current.next;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Playlist playlist = new Playlist();
+
+        while (true) {
+            System.out.print("Masukkan judul lagu (atau ketik 'keluar' untuk berhenti): ");
+            String title = scanner.nextLine();
+            if (title.equalsIgnoreCase("keluar")) {
+                break;
+            }
+            playlist.addSong(title);
+            System.out.println("Lagu \"" + title + "\" telah ditambahkan ke playlist.");
+        }
+
+        System.out.println("\nDaftar Lagu dalam Playlist:");
+        playlist.displayPlaylist();
+        scanner.close();
+    }
+}
+
